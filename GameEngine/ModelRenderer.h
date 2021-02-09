@@ -7,34 +7,12 @@
 #include <string>
 
 #include "Camera.h"
+#include "Model.h"
 
 namespace GE {
-	struct Vertex {
-		float x, y, z;
-		float r, g, b, a;
-
-		Vertex(float _x, float _y, float _z, float _r, float _g, float _b, float _a) {
-			//position
-			x = _x;
-			y = _y;
-			z = _z;
-
-			//colour
-			r = _r;
-			g = _g;
-			b = _b;
-			a = _a;
-		}
-
-		Vertex() {
-			x = y = z = 0.0f;
-			r = g = b = a = 0.0f;
-		}
-	};
-
 	class ModelRenderer {
 	public:
-		ModelRenderer()
+		ModelRenderer(Model* m)
 		{
 			posX = 0.0f;
 			posY = 0.0f;
@@ -45,6 +23,8 @@ namespace GE {
 			scaleX = 1.0f;
 			scaleY = 1.0f;
 			scaleZ = 1.0f;
+
+			model = m;
 		}
 		virtual ~ModelRenderer() {}
 
@@ -118,7 +98,7 @@ namespace GE {
 		GLint vertexFragmentColourLocation;
 
 		//stores the triangle vertex buffer object containing vertices
-		GLuint vboTriangle;
+		GLuint vboModel;
 
 		float posX, posY, posZ;
 		float rotX, rotY, rotZ;
@@ -127,5 +107,7 @@ namespace GE {
 		GLuint transformUniformId;
 		GLuint viewUniformId;
 		GLuint projectionUniformId;
+
+		Model* model;
 	};
 }

@@ -54,43 +54,6 @@ namespace GE {
 		fps = new FPS();
 		fps->init();
 
-		/*
-		GLfloat vertexData1[]{
-			-0.2f, -0.8f,
-			-0.13f, 0.0f,
-			-0.03f, 0.4f,
-			0.1f, 0.65f,
-			0.0f, 0.0f,
-			-0.05f, -0.75f,
-
-			0.3f, 0.75f,
-			0.1f, 0.65f,
-			0.3f, 0.95f,
-			0.45f, 0.8f,
-			0.5f, 0.2f,
-
-			0.38f, 0.55f,
-			0.1f, 0.65f,
-			0.35f, 0.75f,
-			0.5f, 0.6f,
-			0.55f, 0.2f,
-
-			-0.18f, 0.7f,
-			0.1f, 0.65f,
-			-0.15f, 0.9f,
-			-0.35f, 0.8f,
-			-0.5f, 0.4f,
-
-			-0.28f, 0.4f,
-			0.1f, 0.65f,
-			-0.25f, 0.6f,
-			-0.45f, 0.5f,
-			-0.6f, 0.1f
-		};*/
-
-		//std::cout << sizeof(vertexData1) << "\n";
-		//std::cout << (sizeof(vertexData1) / sizeof(vertexData1[0])) << "\n";
-
 		//create camera
 		cam = new Camera(
 			glm::vec3(0.0f, 0.0f, 5.0f),
@@ -99,25 +62,20 @@ namespace GE {
 			45.0f, 640.0f / 480.0f, 0.1f, 100.0f
 		);
 
-		//create TriangleRenderers
-		/*tr1 = new TriangleRenderer();
-		tr1->init(vertexData1, 12, "0.1, 0.8, 0.01, 1.0");
+		//create Model
+		m = new Model();
 
-		tr2 = new TriangleRenderer();
-		tr2->init(vertexData2, 12, "0.1, 0.01, 0.01, 1.0");
+		bool result = m->loadFromFile("Assets/PalmTree.fbx");
 
-		tr3 = new TriangleRenderer();
-		tr3->init(vertexData3, 10, "0.1, 0.35, 0.01, 1.0");
-
-		tr4 = new TriangleRenderer();
-		tr4->init(vertexData4, 10, "0.1, 0.8, 0.01, 1.0");
-
-		tr5 = new TriangleRenderer();
-		tr5->init(vertexData5, 10, "0.1, 0.35, 0.01, 1.0");*/
+		if (!result) {
+			std::cerr << "Failes to load model" << "\n";
+		}
 
 		//create ModelRenderer
-		mr = new ModelRenderer();
+		mr = new ModelRenderer(m);
 		mr->init();
+
+		mr->setScale(0.3f, 0.3f, 0.3f);
 
 		return true;
 	}
@@ -147,204 +105,14 @@ namespace GE {
 
 			lastTime = currentTime;
 		}
+
+		mr->setRotation(0.0f, mr->getRotY() + 2.5f, 0.0f);
 	}
 
 	void GameEngine::draw()
 	{
 		glClearColor(0.1f, 0.08f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		/*glBegin(GL_TRIANGLES);
-		glColor3f(0.9f, 0.1f, 1.0f);
-		glVertex2f(-1.0f, 0.0f);
-		glColor3f(0.9f, 0.1f, 1.0f);
-		glVertex2f(1.0f, 0.0f);
-		glColor3f(0.9f, 0.1f, 1.0f);
-		glVertex2f(0.0f, 1.0f);
-
-		glColor3f(0.0f, 1.0f, 0.3f);
-		glVertex2f(-1.0f, 0.0f);
-		glColor3f(0.0f, 1.0f, 0.3f);
-		glVertex2f(1.0f, 0.0f);
-		glColor3f(0.0f, 1.0f, 0.3f);
-		glVertex2f(0.0f, -1.0f);
-		glEnd();*/
-
-		//    POLYGON
-		/*glBegin(GL_POLYGON);
-		    glColor3f(0.0f, 0.0f, 1.0f);
-		    glVertex2f(-0.75f, -0.75f);
-
-		    glColor3f(0.0f, 0.0f, 1.0f);
-		    glVertex2f(0.75f, -0.75f);
-			
-			glColor3f(0.0f, 0.0f, 1.0f);
-			glVertex2f(0.75f, 0.75f);
-
-		    glColor3f(0.0f, 0.0f, 1.0f);
-		    glVertex2f(-0.75f, 0.75f);
-		glEnd();*/
-
-		//    COLOURS
-	   /*glBegin(GL_TRIANGLES);
-		   glColor3f(0.9f, 0.1f, 1.0f);
-		   glVertex2f(-1.0f, 0.0f);
-		   glColor3f(1.0f, 0.6f, 0.1f);
-		   glVertex2f(0.0f, -1.0f);
-		   glColor3f(0.0f, 1.0f, 1.0f);
-		   glVertex2f(1.0f, 0.0f);
-	   glEnd();*/
-
-	   //    COLOURS AND PERSPECTIVE
-	   /*glBegin(GL_TRIANGLES);
-	       glColor3f(1.0f, 1.0f, 0.0f);
-	       glVertex3f(1.0f, 0.0f, zpoint);
-	       glColor3f(0.0f, 1.0f, 0.0f);
-	       glVertex3f(0.0f, -1.0f, 0.0f);
-	       glColor3f(0.0f, 1.0f, 1.0f);
-	       glVertex3f(1.0f, -1.0f, 0.0f);
-
-		   glColor3f(1.0f, 1.0f, 0.0f);
-		   glVertex3f(-1.0f, 0.0f, zpoint2);
-		   glColor3f(0.0f, 1.0f, 0.0f);
-		   glVertex3f(0.0f, -1.0f, 0.0f);
-		   glColor3f(0.0f, -1.0f, 1.0f);
-		   glVertex3f(-1.0f, -1.0f, 0.0f);
-	   glEnd();*/
-
-
-		//PALM TREE
-		/*
-		glBegin(GL_POLYGON);
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(-0.2f, -0.8f);
-
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(-0.13f, 0.0f);
-
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(-0.03f, 0.4f);
-
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(0.1f, 0.65f);
-
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(0.0f, 0.0f);
-
-			glColor3f(0.1f, 0.01f, 0.01f);
-			glVertex2f(-0.05f, -0.75f);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.3f, 0.75f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.1f, 0.65f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.3f, 0.95f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.45f, 0.8f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.5f, 0.2f);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.38f, 0.55f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.1f, 0.65f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.35f, 0.75f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.5f, 0.6f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.55f, 0.2f);
-		glEnd();
-		
-		glBegin(GL_POLYGON);
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(-0.18f, 0.75f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(0.1f, 0.65f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(-0.15f, 0.95f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(-0.35f, 0.8f);
-
-			glColor3f(0.1f, 0.35f, 0.01f);
-			glVertex2f(-0.5f, 0.4f);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(-0.28f, 0.45f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(0.1f, 0.65f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(-0.25f, 0.65f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(-0.45f, 0.5f);
-
-			glColor3f(0.1f, 0.8f, 0.01f);
-			glVertex2f(-0.6f, 0.1f);
-		glEnd();
-		*/
-
-		/*
-	GLfloat vertexData[] = {
-		-0.2f, -0.8f,
-		-0.13f, 0.0f,
-		-0.03f, 0.4f,
-		0.1f, 0.65f,
-		0.0f, 0.0f,
-		-0.05f, -0.75f,
-
-		0.3f, 0.75f,
-		0.1f, 0.65f,
-		0.3f, 0.95f,
-		0.45f, 0.8f,
-		0.5f, 0.2f,
-
-		0.38f, 0.55f,
-		0.1f, 0.65f,
-		0.35f, 0.75f,
-		0.5f, 0.6f,
-		0.55f, 0.2f,
-
-		-0.18f, 0.7f,
-		0.1f, 0.65f,
-		-0.15f, 0.9f,
-		-0.35f, 0.8f,
-		-0.5f, 0.4f,
-
-		-0.28f, 0.4f,
-		0.1f, 0.65f,
-		-0.25f, 0.6f,
-		-0.45f, 0.5f,
-		-0.6f, 0.1f
-	};
-	*/
-
-
-		/*tr2->draw(cam, 6);
-		tr3->draw(cam, 5);
-		tr4->draw(cam, 5);
-		tr5->draw(cam, 5);
-		tr1->draw(cam, 5);*/
 
 		mr->draw(cam);
 
@@ -353,20 +121,11 @@ namespace GE {
 
 	void GameEngine::clear()
 	{
-		/*
-		tr1->clear();
-		tr2->clear();
-		tr3->clear();
-		tr4->clear();
-		tr5->clear();
+		mr->clear();
 
-		delete tr1;
-		delete tr2;
-		delete tr3;
-		delete tr4;
-		delete tr5;
-
-		delete cam;*/
+		delete mr;
+		delete m;
+		delete cam;
 
 		SDL_DestroyWindow(window);
 

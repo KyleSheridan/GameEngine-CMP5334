@@ -215,17 +215,17 @@ namespace GE {
 		viewUniformId = glGetUniformLocation(programId, "view");
 		projectionUniformId = glGetUniformLocation(programId, "projection");
 
-		glGenBuffers(1, &vboTriangle);
-		glBindBuffer(GL_ARRAY_BUFFER, vboTriangle);
+		glGenBuffers(1, &vboModel);
+		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, model->getNumVertices() * sizeof(Vertex), model->getVertices(), GL_STATIC_DRAW);
 	}
 
 	void ModelRenderer::draw(Camera* cam)
 	{
 		glm::mat4 transformationMat = glm::mat4(1.0f);
 
-		transformationMat = glm::scale(transformationMat, glm::vec3(1, 1, 1));
+		transformationMat = glm::scale(transformationMat, glm::vec3(scaleX, scaleY , scaleZ));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotX), glm::vec3(1.0f, 0.0f, 0.0f));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotY), glm::vec3(0.0f, 1.0f, 0.0f));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotZ), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -248,9 +248,9 @@ namespace GE {
 
 		glEnableVertexAttribArray(vertexFragmentColourLocation);
 
-		glBindBuffer(GL_ARRAY_BUFFER, vboTriangle);
+		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
 
-		glDrawArrays(GL_POLYGON, 0, sizeof(triangleVertices) / sizeof(Vertex));
+		glDrawArrays(GL_POLYGON, 0, model->getNumVertices());
 
 		glDisableVertexAttribArray(vertexPos3DLocation);
 		glDisableVertexAttribArray(vertexFragmentColourLocation);
@@ -262,6 +262,6 @@ namespace GE {
 	{
 		glDeleteProgram(programId);
 
-		glDeleteBuffers(1, &vboTriangle);
+		glDeleteBuffers(1, &vboModel);
 	}
 }

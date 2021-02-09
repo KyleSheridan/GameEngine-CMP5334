@@ -154,6 +154,7 @@
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelRenderer.cpp" />
     <ClCompile Include="TriangleRenderer.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="ModelRenderer.h" />
     <ClInclude Include="TriangleRenderer.h" />
   </ItemGroup>
