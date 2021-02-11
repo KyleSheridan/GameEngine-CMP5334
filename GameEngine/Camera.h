@@ -16,6 +16,8 @@ namespace GE {
 			farClip = far;
 
 			updateCamMatrices();
+
+			SDL_GetMouseState(&oldMouseX, &oldMouseY);
 		}
 		~Camera() {}
 
@@ -37,6 +39,20 @@ namespace GE {
 
 		glm::mat4 getProjectionMatrix() {
 			return projectionMat;
+		}
+
+		float getPitch() {
+			return pitch;
+		}
+		float getYaw() {
+			return yaw;
+		}
+
+		float getOldMouseX() {
+			return oldMouseX;
+		}
+		float getOldMouseY() {
+			return oldMouseY;
 		}
 
 		void setPosX(float x) {
@@ -63,7 +79,13 @@ namespace GE {
 			updateCamMatrices();
 		}
 
-		void setTartget(glm::vec3 newTarget) {
+		void setPos(glm::vec3 newPos) {
+			pos = newPos;
+
+			updateCamMatrices();
+		}
+
+		void setTarget(glm::vec3 newTarget) {
 			target = newTarget;
 
 			updateCamMatrices();
@@ -99,9 +121,26 @@ namespace GE {
 			updateCamMatrices();
 		}
 
+		void setPitch(float newPitch) {
+			pitch = newPitch;
+
+			if (pitch > 70.0f) pitch = 70.0f;
+			if (pitch < -70.0f) pitch = -70.0f;
+		}
+		void setYaw(float newYaw) {
+			yaw = newYaw;
+		}
+
+		void setOldMouseX(float newOldMouseX) {
+			oldMouseX = newOldMouseX;
+		}
+		void setOldMouseY(float newOldMouseY) {
+			oldMouseY = newOldMouseY;
+		}
+
 	private:
 		void updateCamMatrices() {
-			viewMat = glm::lookAt(pos, target, up);
+			viewMat = glm::lookAt(pos, pos + target, up);
 			projectionMat = glm::perspective(glm::radians(fovy), aspectR, nearClip, farClip);
 		}
 
@@ -110,10 +149,18 @@ namespace GE {
 		glm::vec3 target;
 		glm::vec3 up;
 
+		//Camera projection
 		float fovy;
 		float aspectR;
 		float nearClip;
 		float farClip;
+
+		//Camera rotation
+		float pitch = 0.0f;
+		float yaw = -90.0f;
+
+		//mouse variables
+		int oldMouseX, oldMouseY;
 
 		glm::mat4 viewMat;
 		glm::mat4 projectionMat;

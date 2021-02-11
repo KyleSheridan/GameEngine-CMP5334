@@ -65,17 +65,21 @@ namespace GE {
 		//create Model
 		m = new Model();
 
-		bool result = m->loadFromFile("Assets/PalmTree.fbx");
+		m->loadFromFile("Assets/PalmTree.obj");
 
-		if (!result) {
+		if (m->getVertices() == nullptr) {
 			std::cerr << "Failes to load model" << "\n";
 		}
+
+		mat = new Texture("Assets/Spaceship.jpg");
 
 		//create ModelRenderer
 		mr = new ModelRenderer(m);
 		mr->init();
 
-		mr->setScale(0.3f, 0.3f, 0.3f);
+		//mr->setScale(0.3f, 0.3f, 0.3f);
+		mr->setPos(0.0f, 0.0f, 20.0f);
+		mr->setMaterial(mat);
 
 		return true;
 	}
@@ -90,6 +94,88 @@ namespace GE {
 		if (SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_QUIT, SDL_QUIT)) {
 			return false;
 		}
+
+		const float camSpeed = 0.2f;
+		const float mouseSens = 0.1;
+
+		int mouseX, mouseY;
+		SDL_GetMouseState(&mouseX, &mouseY);
+
+		float diffx = mouseX - cam->getOldMouseX();
+		float diffy = cam->getOldMouseY() - mouseY;
+
+		cam->setYaw((cam->getYaw() + diffx) * mouseSens);
+		cam->setPitch((cam->getPitch() + diffy) * mouseSens);
+
+		glm::vec3 direction;
+		direction.x = cos(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
+		direction.y = sin(glm::radians(cam->getPitch()));
+		direction.z = sin(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
+		cam->setTarget(glm::normalize(direction));
+
+		bool keyStates[4] = { 0,0,0,0 };
+
+		enum {
+			UP = 0,
+			DOWN,
+			LEFT,
+			RIGHT
+		};
+		if (SDL_PollEvent(&e)) {
+			if (e.type == SDL_KEYDOWN) {
+				switch (e.key.keysym.scancode) {
+				case SDL_SCANCODE_UP:
+					keyStates[UP] = true;
+					break;
+				case SDL_SCANCODE_DOWN:
+					keyStates[DOWN] = true;
+					break;
+				case SDL_SCANCODE_LEFT:
+					keyStates[LEFT] = true;
+					break;
+				case SDL_SCANCODE_RIGHT:
+					keyStates[RIGHT] = true;
+					break;
+				default:
+					break;
+				}
+			}
+
+			if (e.type == SDL_KEYUP) {
+				switch (e.key.keysym.scancode) {
+				case SDL_SCANCODE_UP:
+					keyStates[UP] = false;
+					break;
+				case SDL_SCANCODE_DOWN:
+					keyStates[DOWN] = false;
+					break;
+				case SDL_SCANCODE_LEFT:
+					keyStates[LEFT] = false;
+					break;
+				case SDL_SCANCODE_RIGHT:
+					keyStates[RIGHT] = false;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		if (keyStates[UP]) {
+			cam->setPos(cam->getPos() + cam->getTarget() * camSpeed);
+		}
+		if (keyStates[DOWN]) {
+			cam->setPos(cam->getPos() - cam->getTarget() * camSpeed);
+		}
+		if (keyStates[LEFT]) {
+			cam->setPos(cam->getPos() - glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
+		}
+		if (keyStates[RIGHT]) {
+			cam->setPos(cam->getPos() + glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
+		}
+
+		cam->setOldMouseX(640.0f / 2);
+		cam->setOldMouseY(480.0f / 2);
 
 		return true;
 	}
@@ -106,13 +192,14 @@ namespace GE {
 			lastTime = currentTime;
 		}
 
-		mr->setRotation(0.0f, mr->getRotY() + 2.5f, 0.0f);
+		//mr->setRotation(0.0f, mr->getRotY() + 0.5f, 0.0f);
 	}
 
 	void GameEngine::draw()
 	{
 		glClearColor(0.1f, 0.08f, 0.5f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		mr->draw(cam);
 

@@ -8,6 +8,7 @@
 
 #include "Camera.h"
 #include "Model.h"
+#include "Texture.h"
 
 namespace GE {
 	class ModelRenderer {
@@ -87,6 +88,10 @@ namespace GE {
 			scaleZ = z;
 		}
 
+		void setMaterial(Texture* mat) {
+			material = mat;
+		}
+
 	private:
 		//stores program object that contains shaders
 		GLuint programId;
@@ -95,7 +100,7 @@ namespace GE {
 		GLint vertexPos3DLocation;
 
 		//stores attribut for colour
-		GLint vertexFragmentColourLocation;
+		GLint vertexUVLocation;
 
 		//stores the triangle vertex buffer object containing vertices
 		GLuint vboModel;
@@ -107,7 +112,10 @@ namespace GE {
 		GLuint transformUniformId;
 		GLuint viewUniformId;
 		GLuint projectionUniformId;
+		GLuint samplerId;
 
 		Model* model;
+
+		Texture* material;
 	};
 }

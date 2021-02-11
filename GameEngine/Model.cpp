@@ -7,7 +7,7 @@ namespace GE {
 
 		Assimp::Importer imp;
 
-		const aiScene* pScene = imp.ReadFile(filename, aiProcessPreset_TargetRealtime_Quality);
+		const aiScene* pScene = imp.ReadFile(filename, aiProcessPreset_TargetRealtime_Quality | aiProcess_FlipUVs);
 
 		if (!pScene) {
 			return false;
@@ -22,7 +22,9 @@ namespace GE {
 				for (int vertIdx = 0; vertIdx < 3; vertIdx++) {
 					const aiVector3D* pos = &mesh->mVertices[face.mIndices[vertIdx]];
 
-					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, 1.0f, 1.0f, 1.0f, 1.0f));
+					const aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[vertIdx]];
+
+					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, uv.x, uv.y));
 				}
 			}
 		}

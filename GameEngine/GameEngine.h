@@ -31,6 +31,7 @@ namespace GE {
 		Camera* cam;
 
 		Model* m;
+		Texture* mat;
 		ModelRenderer* mr;
 
 		FPS* fps;

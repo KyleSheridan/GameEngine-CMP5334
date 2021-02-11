@@ -45,11 +45,8 @@ namespace GE {
 		-0.6f, 0.1f
 	}; */
 
+	/*
 	Vertex triangleVertices[] = {
-		/*Vertex(1.0f, 0.0f, 0.0f, 0.9f, 0.1f, 0.8f, 1.0f),
-		Vertex(0.0f, 1.0f, 0.0f, 0.9f, 0.1f, 0.8f, 1.0f),
-		Vertex(-1.0f, 0.0f, 0.0f, 0.9f, 0.1f, 0.8f, 1.0f)*/
-
 		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
 		Vertex(0.0f, 0.0f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
 		Vertex(-0.05f, -0.75f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
@@ -82,7 +79,7 @@ namespace GE {
 		Vertex(-0.6f, 0.1f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
 		Vertex(-0.28f, 0.4f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f)
 		
-	};
+	};*/
 
 	void displayShaderCompilerError(GLuint shaderId)
 	{
@@ -124,8 +121,8 @@ namespace GE {
 		const GLchar* V_ShaderCode[] = {
 			"#version 140\n"
 			"in vec3 vertexPos3D;\n"
-			"in vec4 vColour;\n"
-			"out vec4 fColour;\n"
+			"in vec2 vUV;\n"
+			"out vec2 uv;\n"
 			"uniform mat4 transform;\n"
 			"uniform mat4 view;\n"
 			"uniform mat4 projection;\n"
@@ -133,7 +130,7 @@ namespace GE {
 			"vec4 v = vec4(vertexPos3D.xyz, 1);\n"
 			"v = projection * view * transform * v;\n"
 			"gl_Position = v;\n"
-			"fColour = vColour;\n"
+			"uv = vUV;\n"
 			"}\n"
 		};
 
@@ -157,10 +154,11 @@ namespace GE {
 
 		const GLchar* F_ShaderCode[] = {
 			"#version 140\n"
-			"in vec4 fColour;\n"
+			"in vec2 uv;\n"
+			"uniform sampler2D sampler;\n"
 			"out vec4 fragmentColour;\n"
 			"void main() {\n"
-			"fragmentColour = fColour;\n"
+			"fragmentColour = texture(sampler, uv).rgba;\n"
 			"}\n"
 		};
 
@@ -205,15 +203,16 @@ namespace GE {
 			std::cerr << "Problem getting vertex3DPos" << "\n";
 		}
 
-		vertexFragmentColourLocation = glGetAttribLocation(programId, "vColour");
+		vertexUVLocation = glGetAttribLocation(programId, "vUV");
 
-		if (vertexFragmentColourLocation == -1) {
-			std::cerr << "Problem getting vertexFragmentColour" << "\n";
+		if (vertexUVLocation == -1) {
+			std::cerr << "Problem getting vUV" << "\n";
 		}
 
 		transformUniformId = glGetUniformLocation(programId, "transform");
 		viewUniformId = glGetUniformLocation(programId, "view");
 		projectionUniformId = glGetUniformLocation(programId, "projection");
+		samplerId = glGetUniformLocation(programId, "sampler");
 
 		glGenBuffers(1, &vboModel);
 		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
@@ -223,13 +222,15 @@ namespace GE {
 
 	void ModelRenderer::draw(Camera* cam)
 	{
+		glEnable(GL_CULL_FACE);
+
 		glm::mat4 transformationMat = glm::mat4(1.0f);
 
 		transformationMat = glm::scale(transformationMat, glm::vec3(scaleX, scaleY , scaleZ));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotX), glm::vec3(1.0f, 0.0f, 0.0f));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotY), glm::vec3(0.0f, 1.0f, 0.0f));
 		transformationMat = glm::rotate(transformationMat, glm::radians(rotZ), glm::vec3(0.0f, 0.0f, 1.0f));
-		transformationMat = glm::translate(transformationMat, glm::vec3(0, 0, 0));
+		transformationMat = glm::translate(transformationMat, glm::vec3(posX, posY, posZ));
 
 		glm::mat4 viewMat = cam->getViewMatrix();
 		glm::mat4 projectionMat = cam->getProjectionMatrix();
@@ -244,18 +245,26 @@ namespace GE {
 
 		glEnableVertexAttribArray(vertexPos3DLocation);
 
-		glVertexAttribPointer(vertexFragmentColourLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, r));
+		glVertexAttribPointer(vertexUVLocation, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, u));
 
-		glEnableVertexAttribArray(vertexFragmentColourLocation);
+		glEnableVertexAttribArray(vertexUVLocation);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
 
-		glDrawArrays(GL_POLYGON, 0, model->getNumVertices());
+		//set texture
+		glActiveTexture(GL_TEXTURE0);
+		glUniform1i(samplerId, 0);
+		glBindTexture(GL_TEXTURE_2D, material->getTextureName());
+
+		//draw model
+		glDrawArrays(GL_TRIANGLES, 0, model->getNumVertices());
 
 		glDisableVertexAttribArray(vertexPos3DLocation);
-		glDisableVertexAttribArray(vertexFragmentColourLocation);
+		glDisableVertexAttribArray(vertexUVLocation);
 
 		glUseProgram(0);
+
+		glDisable(GL_CULL_FACE);
 	}
 
 	void ModelRenderer::clear()
