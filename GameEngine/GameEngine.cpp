@@ -71,7 +71,7 @@ namespace GE {
 			std::cerr << "Failes to load model" << "\n";
 		}
 
-		mat = new Texture("Assets/Spaceship.jpg");
+		mat = new Texture("Assets/PalmTreeTexture.png");
 
 		//create ModelRenderer
 		mr = new ModelRenderer(m);
@@ -136,6 +136,18 @@ namespace GE {
 				case SDL_SCANCODE_RIGHT:
 					keyStates[RIGHT] = true;
 					break;
+				case SDL_SCANCODE_W:
+					keyStates[UP] = true;
+					break;
+				case SDL_SCANCODE_S:
+					keyStates[DOWN] = true;
+					break;
+				case SDL_SCANCODE_A:
+					keyStates[LEFT] = true;
+					break;
+				case SDL_SCANCODE_D:
+					keyStates[RIGHT] = true;
+					break;
 				default:
 					break;
 				}
@@ -153,6 +165,18 @@ namespace GE {
 					keyStates[LEFT] = false;
 					break;
 				case SDL_SCANCODE_RIGHT:
+					keyStates[RIGHT] = false;
+					break;
+				case SDL_SCANCODE_W:
+					keyStates[UP] = false;
+					break;
+				case SDL_SCANCODE_S:
+					keyStates[DOWN] = false;
+					break;
+				case SDL_SCANCODE_A:
+					keyStates[LEFT] = false;
+					break;
+				case SDL_SCANCODE_D:
 					keyStates[RIGHT] = false;
 					break;
 				default:
