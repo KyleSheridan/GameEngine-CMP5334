@@ -1,0 +1,29 @@
+﻿  FPS.cpp
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\FPS.cpp(29,25): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\FPS.cpp(51,23): warning C4018: '<': signed/unsigned mismatch
+  GameEngine.cpp
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(52,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(55,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(135,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(138,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\GameEngine.cpp(99,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+  main.cpp
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(52,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(55,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(135,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(138,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Model.cpp
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Model.cpp(16,33): warning C4018: '<': signed/unsigned mismatch
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Model.cpp(19,34): warning C4018: '<': signed/unsigned mismatch
+  ModelRenderer.cpp
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(52,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(55,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(135,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(138,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Texture.cpp
+  TriangleRenderer.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 257 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  GameEngine.vcxproj -> D:\Documents\GitHub\GameEngine-CMP5334\Release\GameEngine.exe
