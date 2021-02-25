@@ -8,6 +8,7 @@
 #include "TriangleRenderer.h"
 #include "ModelRenderer.h"
 #include "Camera.h"
+#include "SkyboxRenderer.h"
 
 namespace GE {
 	class GameEngine {
@@ -30,9 +31,13 @@ namespace GE {
 
 		Camera* cam;
 
+		glm::vec3 dist;
+
 		Model* m;
 		Texture* mat;
 		ModelRenderer* mr;
+
+		SkyboxRenderer* skybox;
 
 		FPS* fps;
 

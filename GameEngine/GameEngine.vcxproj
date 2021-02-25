@@ -156,6 +156,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelRenderer.cpp" />
+    <ClCompile Include="ShaderUtils.cpp" />
+    <ClCompile Include="SkyboxRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleRenderer.cpp" />
   </ItemGroup>
@@ -165,6 +167,8 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelRenderer.h" />
+    <ClInclude Include="ShaderUtils.h" />
+    <ClInclude Include="SkyboxRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TriangleRenderer.h" />
   </ItemGroup>

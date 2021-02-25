@@ -54,10 +54,12 @@ namespace GE {
 		fps = new FPS();
 		fps->init();
 
+		dist = glm::vec3(0.0f, 0.0f, -100.0f);
+
 		//create camera
 		cam = new Camera(
 			glm::vec3(0.0f, 0.0f, 5.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3(0.0f, 0.0f, 0.0f) + dist,
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			45.0f, 640.0f / 480.0f, 0.1f, 100.0f
 		);
@@ -80,6 +82,15 @@ namespace GE {
 		//mr->setScale(0.3f, 0.3f, 0.3f);
 		mr->setPos(0.0f, 0.0f, 20.0f);
 		mr->setMaterial(mat);
+
+		skybox = new SkyboxRenderer(
+			"Assets/Skybox/front.png",
+			"Assets/Skybox/back.png",
+			"Assets/Skybox/right.png",
+			"Assets/Skybox/left.png",
+			"Assets/Skybox/top.png",
+			"Assets/Skybox/bottom.png"
+		);
 
 		return true;
 	}
@@ -217,6 +228,18 @@ namespace GE {
 		}
 
 		//mr->setRotation(0.0f, mr->getRotY() + 0.5f, 0.0f);
+
+		glm::mat4 cam_rot = glm::mat4(1.0f);
+
+		cam_rot = glm::rotate(cam_rot, glm::radians(0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		glm::vec4 temp = glm::vec4(dist, 0.0f);
+
+		temp = temp * cam_rot;
+
+		dist = glm::vec3(temp.x, temp.y, temp.z);
+
+		cam->setTarget(dist);
 	}
 
 	void GameEngine::draw()
@@ -224,6 +247,8 @@ namespace GE {
 		glClearColor(0.1f, 0.08f, 0.5f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		skybox->draw(cam);
 
 		mr->draw(cam);
 
@@ -234,6 +259,9 @@ namespace GE {
 	{
 		mr->clear();
 
+		skybox->clear();
+
+		delete skybox;
 		delete mr;
 		delete m;
 		delete cam;
