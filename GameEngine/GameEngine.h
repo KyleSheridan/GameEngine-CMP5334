@@ -6,7 +6,7 @@
 
 #include "FPS.h"
 #include "TriangleRenderer.h"
-#include "ModelRenderer.h"
+#include "Model.h"
 #include "Camera.h"
 #include "SkyboxRenderer.h"
 
@@ -33,10 +33,26 @@ namespace GE {
 
 		glm::vec3 dist;
 
-		Model* m;
-		Texture* mat;
-		ModelRenderer* mr;
+		//terrain
+		Model* terrainModel;
 
+		//Rocks
+		std::vector<Model*> rockModels;
+
+		//palm trees
+		Model* palmTreeModel;
+
+		//other trees
+		Model* treeModel;
+
+		//temple
+		Model* templeModel;
+
+		//brazier
+		Model* brazierModel;
+		Model* brazierModel2;
+
+		//skybox
 		SkyboxRenderer* skybox;
 
 		FPS* fps;

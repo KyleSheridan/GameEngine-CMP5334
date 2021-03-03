@@ -1,40 +1,30 @@
 #include "Model.h"
 
 namespace GE {
-	bool Model::loadFromFile(const char* filename)
+	void Model::init()
 	{
-		std::vector<Vertex> loadedVertices;
+		mesh = new Mesh();
+		mesh->loadFromFile(meshFile);
 
-		Assimp::Importer imp;
-
-		const aiScene* pScene = imp.ReadFile(filename, aiProcessPreset_TargetRealtime_Quality | aiProcess_FlipUVs);
-
-		if (!pScene) {
-			return false;
+		if (mesh->getVertices() == nullptr) {
+			std::cerr << "Failed to load model" << "\n";
 		}
 
-		for (int MeshIdx = 0; MeshIdx < pScene->mNumMeshes; MeshIdx++) {
-			const aiMesh* mesh = pScene->mMeshes[MeshIdx];
+		texture = new Texture(textureFile);
 
-			for (int faceIdx = 0; faceIdx < mesh->mNumFaces; faceIdx++) {
-				const aiFace& face = mesh->mFaces[faceIdx];
+		mr = new ModelRenderer(mesh);
+		mr->init();
 
-				for (int vertIdx = 0; vertIdx < 3; vertIdx++) {
-					const aiVector3D* pos = &mesh->mVertices[face.mIndices[vertIdx]];
+		mr->setMaterial(texture);
+	}
 
-					const aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[vertIdx]];
+	void Model::draw(Camera* cam)
+	{
+		mr->draw(cam);
+	}
 
-					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, uv.x, uv.y));
-				}
-			}
-		}
-
-		numVertices = loadedVertices.size();
-
-		vertices = new Vertex[numVertices];
-
-		std::copy(loadedVertices.begin(), loadedVertices.end(), vertices);
-
-		return true;
+	void Model::clear()
+	{
+		mr->clear();
 	}
 }

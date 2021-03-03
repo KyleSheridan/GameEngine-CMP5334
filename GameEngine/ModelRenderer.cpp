@@ -217,7 +217,7 @@ namespace GE {
 		glGenBuffers(1, &vboModel);
 		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
 
-		glBufferData(GL_ARRAY_BUFFER, model->getNumVertices() * sizeof(Vertex), model->getVertices(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mesh->getNumVertices() * sizeof(Vertex), mesh->getVertices(), GL_STATIC_DRAW);
 	}
 
 	void ModelRenderer::draw(Camera* cam)
@@ -241,6 +241,8 @@ namespace GE {
 		glUniformMatrix4fv(viewUniformId, 1, GL_FALSE, glm::value_ptr(viewMat));
 		glUniformMatrix4fv(projectionUniformId, 1, GL_FALSE, glm::value_ptr(projectionMat));
 
+		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
+		
 		glVertexAttribPointer(vertexPos3DLocation, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, x));
 
 		glEnableVertexAttribArray(vertexPos3DLocation);
@@ -249,15 +251,16 @@ namespace GE {
 
 		glEnableVertexAttribArray(vertexUVLocation);
 
-		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
 
 		//set texture
 		glActiveTexture(GL_TEXTURE0);
 		glUniform1i(samplerId, 0);
 		glBindTexture(GL_TEXTURE_2D, material->getTextureName());
 
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboModel);
+
 		//draw model
-		glDrawArrays(GL_TRIANGLES, 0, model->getNumVertices());
+		glDrawArrays(GL_TRIANGLES, 0, mesh->getNumVertices());
 
 		glDisableVertexAttribArray(vertexPos3DLocation);
 		glDisableVertexAttribArray(vertexUVLocation);

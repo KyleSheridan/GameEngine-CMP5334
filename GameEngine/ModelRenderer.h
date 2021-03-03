@@ -7,13 +7,13 @@
 #include <string>
 
 #include "Camera.h"
-#include "Model.h"
+#include "Mesh.h"
 #include "Texture.h"
 
 namespace GE {
 	class ModelRenderer {
 	public:
-		ModelRenderer(Model* m)
+		ModelRenderer(Mesh* m)
 		{
 			posX = 0.0f;
 			posY = 0.0f;
@@ -25,7 +25,7 @@ namespace GE {
 			scaleY = 1.0f;
 			scaleZ = 1.0f;
 
-			model = m;
+			mesh = m;
 		}
 		virtual ~ModelRenderer() {}
 
@@ -114,7 +114,7 @@ namespace GE {
 		GLuint projectionUniformId;
 		GLuint samplerId;
 
-		Model* model;
+		Mesh* mesh;
 
 		Texture* material;
 	};

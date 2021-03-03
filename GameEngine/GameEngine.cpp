@@ -54,35 +54,90 @@ namespace GE {
 		fps = new FPS();
 		fps->init();
 
-		dist = glm::vec3(0.0f, 0.0f, -100.0f);
+		//dist = glm::vec3(0.0f, 0.0f, -100.0f);
 
 		//create camera
 		cam = new Camera(
 			glm::vec3(0.0f, 0.0f, 5.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f) + dist,
+			glm::vec3(0.0f, 0.0f, 0.0f) /*+ dist*/,
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			45.0f, 640.0f / 480.0f, 0.1f, 100.0f
 		);
 
-		//create Model
-		m = new Model();
+		//terrain
+		terrainModel = new Model("Assets/Terrain.obj", "Assets/Grass.jpg");
+		terrainModel->init();
 
-		m->loadFromFile("Assets/PalmTree.obj");
+		terrainModel->setScale(10.0f, 10.0f, 10.0f);
+		terrainModel->setPos(0.0f, -0.5f, 0.0f);
 
-		if (m->getVertices() == nullptr) {
-			std::cerr << "Failes to load model" << "\n";
-		}
+		//create palm tree Model
+		palmTreeModel = new Model("Assets/PalmTree.obj", "Assets/PalmTreeTexture.png");
+		palmTreeModel->init();
+		palmTreeModel->setPos(20.0f, 0.0f, 40.0f);
 
-		mat = new Texture("Assets/PalmTreeTexture.png");
+		//other trees
+		treeModel = new Model("Assets/Tree.obj", "Assets/TreeTexture.png");
+		treeModel->init();
+		treeModel->setScale(0.7f, 0.7f, 0.7f);
+		treeModel->setPos(-20.0, -7.0f, 50.0f);
 
-		//create ModelRenderer
-		mr = new ModelRenderer(m);
-		mr->init();
+		//temple
+		templeModel = new Model("Assets/Temple.obj", "Assets/GreyStone.png");
+		templeModel->init();
 
-		//mr->setScale(0.3f, 0.3f, 0.3f);
-		mr->setPos(0.0f, 0.0f, 20.0f);
-		mr->setMaterial(mat);
+		templeModel->setRotation(0.0f, -90.0f, 0.0f);
+		templeModel->setPos(100.0f, -10.0f, 0.0f);
 
+		//rocks
+		rockModels.push_back(new Model("Assets/Rocks/Stone_1.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(350.0f, -50.0f, 150.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_1.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(-350.0f, -50.0f, 150.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_2.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(350.0f, -35.0f, 30.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_2.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(-350.0f, -35.0f, 30.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_3.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(350.0f, -35.0f, -40.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_3.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(-350.0f, -35.0f, -40.0f);
+		rockModels.back()->setScale(0.1f, 0.1f, 0.3f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_1.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(70.0f, -50.0f, -200.0f);
+		rockModels.back()->setScale(0.3f, 0.1f, 0.1f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_1.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(-70.0f, -50.0f, -200.0f);
+		rockModels.back()->setScale(0.3f, 0.1f, 0.1f);
+		rockModels.push_back(new Model("Assets/Rocks/Stone_2.obj", "Assets/Rocks/Rock.jpg"));
+		rockModels.back()->init();
+		rockModels.back()->setPos(0.0f, -35.0f, -200.0f);
+		rockModels.back()->setScale(0.3f, 0.1f, 0.1f);
+
+		brazierModel = new Model("Assets/Brazier.obj", "Assets/GreyStone.png");
+		brazierModel->init();
+		brazierModel->setPos(200, -100, 1000);
+		brazierModel->setScale(0.05, 0.05, 0.05);
+		
+		brazierModel2 = new Model("Assets/Brazier.obj", "Assets/GreyStone.png");
+		brazierModel2->init();
+		brazierModel2->setPos(-175, -100, 1000);
+		brazierModel2->setScale(0.05, 0.05, 0.05);
+
+		//skybox
 		skybox = new SkyboxRenderer(
 			"Assets/Skybox/front.png",
 			"Assets/Skybox/back.png",
@@ -229,7 +284,7 @@ namespace GE {
 
 		//mr->setRotation(0.0f, mr->getRotY() + 0.5f, 0.0f);
 
-		glm::mat4 cam_rot = glm::mat4(1.0f);
+		/*glm::mat4 cam_rot = glm::mat4(1.0f);
 
 		cam_rot = glm::rotate(cam_rot, glm::radians(0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -239,7 +294,7 @@ namespace GE {
 
 		dist = glm::vec3(temp.x, temp.y, temp.z);
 
-		cam->setTarget(dist);
+		cam->setTarget(dist);*/
 	}
 
 	void GameEngine::draw()
@@ -250,20 +305,29 @@ namespace GE {
 
 		skybox->draw(cam);
 
-		mr->draw(cam);
+		terrainModel->draw(cam);
+
+		palmTreeModel->draw(cam);
+		treeModel->draw(cam);
+		templeModel->draw(cam);
+
+		brazierModel->draw(cam);
+		brazierModel2->draw(cam);
+
+		for (Model*& rock : rockModels)
+			rock->draw(cam);
 
 		SDL_GL_SwapWindow(window);
 	}
 
 	void GameEngine::clear()
 	{
-		mr->clear();
+		palmTreeModel->clear();
 
 		skybox->clear();
 
 		delete skybox;
-		delete mr;
-		delete m;
+		delete palmTreeModel;
 		delete cam;
 
 		SDL_DestroyWindow(window);

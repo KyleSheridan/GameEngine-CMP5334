@@ -21,7 +21,7 @@ namespace GE {
 		}
 	};
 
-	const float SIDE = 1.0f;
+	const float SIDE = 50.0f;
 
 	CubeVertex cube[] = {
 		//back
@@ -140,7 +140,7 @@ namespace GE {
 
 	void SkyboxRenderer::createSkyboxProgram()
 	{
-		const GLchar* V_ShaderCode[] = {
+		const GLchar* V_ShaderCode2[] = {
 			"#version 140\n"
 			"in vec3 vertexPos3D;\n"
 			"out vec3 texCoord;\n"
@@ -154,7 +154,7 @@ namespace GE {
 			"}\n"
 		};
 
-		const GLchar* F_ShaderCode[] = {
+		const GLchar* F_ShaderCode2[] = {
 			"#version 140\n"
 			"in vec3 texCoord;\n"
 			"uniform samplerCube sampler;\n"
@@ -164,7 +164,7 @@ namespace GE {
 			"}\n"
 		};
 
-		bool result = compileProgram(V_ShaderCode, F_ShaderCode, &skyboxProgramId);
+		bool result = compileProgram(V_ShaderCode2, F_ShaderCode2, &skyboxProgramId);
 
 		if (!result) {
 			std::cerr << "Failed to create SkyboxRenderer program.   Check console for errors" << std::endl;
@@ -217,6 +217,9 @@ namespace GE {
 		glDisableVertexAttribArray(vertexLocation);
 
 		glUseProgram(0);
+
+		/*glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);*/
 
 		if (isDepthTestEnable) {
 			glEnable(GL_DEPTH_TEST);
