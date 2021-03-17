@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "ShaderUtils.h"
 
 namespace GE {
 	class ModelRenderer {

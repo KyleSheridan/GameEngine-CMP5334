@@ -1,9 +1,6 @@
-﻿  GameEngine.cpp
+﻿  ModelRenderer.cpp
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(53,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(56,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(136,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Camera.h(139,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\GameEngine.cpp(133,42): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\GameEngine.cpp(138,43): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\GameEngine.cpp(165,30): warning C4305: 'initializing': truncation from 'double' to 'float'
   GameEngine.vcxproj -> D:\Documents\GitHub\GameEngine-CMP5334\Debug\GameEngine.exe

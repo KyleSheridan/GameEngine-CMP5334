@@ -1,5 +1,6 @@
 #include "ShaderUtils.h"
 #include <iostream>
+#include <fstream>
 
 namespace GE {
 	// This is a helper function that allows us to see
@@ -26,6 +27,28 @@ namespace GE {
 			// Release the memory allocated to the string
 			delete[] Msg;
 		}
+	}
+
+	std::string loadShaderSourceCode(std::string filename)
+	{
+		// Open an input file stream.  Defaults to reading character data
+		std::ifstream ifs(filename);
+
+		if (!ifs.is_open()) {
+			std::cerr << "Problem opening file: " << filename << " Check file is in the directory" << std::endl;
+
+			// Return a default string indicating no shader was loaded
+			// Will result in a compiler error.  Not sophisticated and
+			// needs refinement
+			return std::string("no shader");
+		}
+
+		// Use an iterator to read characters into string
+		std::string shader_source((std::istreambuf_iterator<char>(ifs)),
+			(std::istreambuf_iterator<char>()));
+
+		// Return the string
+		return shader_source;
 	}
 
 	bool compileProgram(const GLchar* v_shader_sourcecode[], const GLchar* f_shader_sourcecode[], GLuint* programId) {

@@ -118,7 +118,7 @@ namespace GE {
 
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
-		const GLchar* V_ShaderCode[] = {
+		/*const GLchar* V_ShaderCode[] = {
 			"#version 140\n"
 			"in vec3 vertexPos3D;\n"
 			"in vec2 vUV;\n"
@@ -132,7 +132,12 @@ namespace GE {
 			"gl_Position = v;\n"
 			"uv = vUV;\n"
 			"}\n"
-		};
+		};*/
+
+		std::string V_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.vs");
+
+		const GLchar* V_ShaderCode[] = { V_ShaderStr.c_str() };
+		 
 
 		glShaderSource(vertexShader, 1, V_ShaderCode, NULL);
 
@@ -152,7 +157,7 @@ namespace GE {
 
 		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		const GLchar* F_ShaderCode[] = {
+		/*const GLchar* F_ShaderCode[] = {
 			"#version 140\n"
 			"in vec2 uv;\n"
 			"uniform sampler2D sampler;\n"
@@ -160,9 +165,11 @@ namespace GE {
 			"void main() {\n"
 			"fragmentColour = texture(sampler, uv).rgba;\n"
 			"}\n"
-		};
+		};*/
 
-		//const char* test = F_ShaderCode.c_str();
+		std::string F_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.fs");
+
+		const GLchar* F_ShaderCode[] = { F_ShaderStr.c_str() };
 
 		glShaderSource(fragmentShader, 1, F_ShaderCode, NULL);
 
