@@ -16,7 +16,7 @@ namespace GE {
 		GameEngine() {}
 		virtual ~GameEngine() {}
 
-		bool init(bool);
+		bool init(bool vsync);
 		bool input();
 		void update();
 		void draw();
@@ -24,8 +24,16 @@ namespace GE {
 
 		void setWindowTitle(const char*);
 
+		bool getPaused() {
+			return paused;
+		}
+
 	private:
+		bool paused = false;
+
 		SDL_Window* window;
+		int width = 1280;
+		int height = 780;
 
 		SDL_GLContext glContext;	//context to represent OpenGL
 
@@ -59,6 +67,17 @@ namespace GE {
 
 		int lastTime = 0;
 		int currentTime = 0;
+
+		const float mouseSens = 0.1;
+		const float camSpeed = 0.2f;
+
+		enum {
+			UP = 0,
+			DOWN,
+			LEFT,
+			RIGHT
+		};
+		bool keyStates[4] = { 0,0,0,0 };
 	};
 
 	void displayInfoMessage(const char*);

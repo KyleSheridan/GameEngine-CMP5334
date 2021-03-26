@@ -13,9 +13,11 @@ int main(int argc, char* args[]) {
 	}
 
 	while (ge.input()) {
-		ge.update();
+		if (!ge.getPaused()) {
+			ge.update();
 
-		ge.draw();
+			ge.draw();
+		}
 	}
 
 	ge.clear();

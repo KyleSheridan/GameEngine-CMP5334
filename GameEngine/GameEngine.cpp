@@ -18,7 +18,7 @@ namespace GE {
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 		//create window
-		window = SDL_CreateWindow("SDL OpenGL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 768, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("SDL OpenGL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
 		if (window == nullptr) {
 			std::cerr << "Unable to create window!   SDL error: " << SDL_GetError() << "\n";
@@ -147,6 +147,8 @@ namespace GE {
 			"Assets/Skybox/bottom.png"
 		);
 
+		SDL_ShowCursor(SDL_DISABLE);
+
 		return true;
 	}
 
@@ -161,35 +163,37 @@ namespace GE {
 			return false;
 		}
 
-		const float camSpeed = 0.2f;
-		const float mouseSens = 0.1;
+		if (!paused) {
+			int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
 
-		int mouseX, mouseY;
-		SDL_GetMouseState(&mouseX, &mouseY);
+			float diffx = mouseX - cam->getOldMouseX();
+			float diffy = cam->getOldMouseY() - mouseY;
 
-		float diffx = mouseX - cam->getOldMouseX();
-		float diffy = cam->getOldMouseY() - mouseY;
+			cam->setYaw(cam->getYaw() + (diffx * mouseSens));
+			cam->setPitch(cam->getPitch() + (diffy * mouseSens));
 
-		cam->setYaw((cam->getYaw() + diffx) * mouseSens);
-		cam->setPitch((cam->getPitch() + diffy) * mouseSens);
+			glm::vec3 direction;
+			direction.x = cos(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
+			direction.y = sin(glm::radians(cam->getPitch()));
+			direction.z = sin(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
+			cam->setTarget(glm::normalize(direction));
+		
+			SDL_WarpMouseInWindow(window, width / 2, height / 2);
+		}
 
-		glm::vec3 direction;
-		direction.x = cos(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
-		direction.y = sin(glm::radians(cam->getPitch()));
-		direction.z = sin(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
-		cam->setTarget(glm::normalize(direction));
-
-		bool keyStates[4] = { 0,0,0,0 };
-
-		enum {
-			UP = 0,
-			DOWN,
-			LEFT,
-			RIGHT
-		};
 		if (SDL_PollEvent(&e)) {
 			if (e.type == SDL_KEYDOWN) {
 				switch (e.key.keysym.scancode) {
+				case SDL_SCANCODE_ESCAPE:
+					if (paused) {
+						return false;
+					}
+					else {
+						paused = true;
+						SDL_ShowCursor(SDL_ENABLE);
+					}
+					break;
 				case SDL_SCANCODE_UP:
 					keyStates[UP] = true;
 					break;
@@ -218,8 +222,7 @@ namespace GE {
 					break;
 				}
 			}
-
-			if (e.type == SDL_KEYUP) {
+			else if (e.type == SDL_KEYUP) {
 				switch (e.key.keysym.scancode) {
 				case SDL_SCANCODE_UP:
 					keyStates[UP] = false;
@@ -249,23 +252,24 @@ namespace GE {
 					break;
 				}
 			}
+			if (e.type == SDL_MOUSEBUTTONDOWN) {
+				if (paused) {
+					paused = false;
+					SDL_ShowCursor(SDL_DISABLE);
+				}
+			}
 		}
 
-		if (keyStates[UP]) {
-			cam->setPos(cam->getPos() + cam->getTarget() * camSpeed);
+		if (paused) {
+			keyStates[UP] = false;
+			keyStates[DOWN] = false;
+			keyStates[LEFT] = false;
+			keyStates[RIGHT] = false;
 		}
-		if (keyStates[DOWN]) {
-			cam->setPos(cam->getPos() - cam->getTarget() * camSpeed);
-		}
-		if (keyStates[LEFT]) {
-			cam->setPos(cam->getPos() - glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
-		}
-		if (keyStates[RIGHT]) {
-			cam->setPos(cam->getPos() + glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
-		}
+		
 
-		cam->setOldMouseX(640.0f / 2);
-		cam->setOldMouseY(480.0f / 2);
+		cam->setOldMouseX(width / 2);
+		cam->setOldMouseY(height / 2);
 
 		return true;
 	}
@@ -282,19 +286,18 @@ namespace GE {
 			lastTime = currentTime;
 		}
 
-		//mr->setRotation(0.0f, mr->getRotY() + 0.5f, 0.0f);
-
-		/*glm::mat4 cam_rot = glm::mat4(1.0f);
-
-		cam_rot = glm::rotate(cam_rot, glm::radians(0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-		glm::vec4 temp = glm::vec4(dist, 0.0f);
-
-		temp = temp * cam_rot;
-
-		dist = glm::vec3(temp.x, temp.y, temp.z);
-
-		cam->setTarget(dist);*/
+		if (keyStates[UP]) {
+			cam->setPos(cam->getPos() + cam->getTarget() * camSpeed);
+		}
+		if (keyStates[DOWN]) {
+			cam->setPos(cam->getPos() - cam->getTarget() * camSpeed);
+		}
+		if (keyStates[LEFT]) {
+			cam->setPos(cam->getPos() - glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
+		}
+		if (keyStates[RIGHT]) {
+			cam->setPos(cam->getPos() + glm::normalize(glm::cross(cam->getTarget(), cam->getUpDir())) * camSpeed);
+		}
 	}
 
 	void GameEngine::draw()
