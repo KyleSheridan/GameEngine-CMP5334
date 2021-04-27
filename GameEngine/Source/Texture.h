@@ -1,7 +1,6 @@
 #pragma once
 #include <GL/glew.h>
-#include <SDL.h>
-#include <SDL_image.h>
+#include "CrossPlatform.h"
 #include <string>
 
 namespace GE {

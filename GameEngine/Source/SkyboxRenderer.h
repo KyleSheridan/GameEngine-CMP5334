@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <vector>
 #include <string>
+#include "CrossPlatform.h"
 
 #include "Camera.h"
 

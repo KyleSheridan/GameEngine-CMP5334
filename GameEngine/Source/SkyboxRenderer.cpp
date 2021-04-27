@@ -1,6 +1,5 @@
 #include "SkyboxRenderer.h"
 #include "ShaderUtils.h"
-#include <SDL_image.h>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
 

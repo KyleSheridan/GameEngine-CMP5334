@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include <SDL.h>
+#include "CrossPlatform.h"
 #include <iostream>
+#include <cstring>
 
 #define FRAME_VALS 10
 
@@ -23,12 +24,12 @@ public:
 
 private:
     // array to store the frame times
-    Uint32 frametimes[FRAME_VALS];
+    uint32_t frametimes[FRAME_VALS];
 
     // var to store result in ticks for curr frame - SDL_GetTicks()
-    Uint32 frametimelast;
+    uint32_t frametimelast;
 
-    Uint32 framecount;
+    uint32_t framecount;
 
     float framespersecond;
 
