@@ -13,8 +13,8 @@ namespace GE {
 			return false;
 		}
 
-		for (int MeshIdx = 0; MeshIdx < pScene->mNumMeshes; MeshIdx++) {
-			const aiMesh* mesh = pScene->mMeshes[MeshIdx];
+		for (int meshIdx = 0; meshIdx < pScene->mNumMeshes; meshIdx++) {
+			const aiMesh* mesh = pScene->mMeshes[meshIdx];
 
 			for (int faceIdx = 0; faceIdx < mesh->mNumFaces; faceIdx++) {
 				const aiFace& face = mesh->mFaces[faceIdx];
@@ -24,7 +24,9 @@ namespace GE {
 
 					const aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[vertIdx]];
 
-					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, uv.x, uv.y));
+					const aiVector3D& normal = mesh->mNormals[meshIdx];
+
+					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, uv.x, uv.y, normal.x, normal.y, normal.z));
 				}
 			}
 		}

@@ -75,7 +75,7 @@ namespace GE {
 
 		CubeVertex(-SIDE,  SIDE, SIDE),
 		CubeVertex(-SIDE, -SIDE, SIDE),
-		CubeVertex(-SIDE, SIDE, -SIDE),
+		CubeVertex(-SIDE, SIDE, -SIDE)
 	};
 
 	void SkyboxRenderer::createCubemap(std::vector<std::string> filenames)
@@ -85,9 +85,12 @@ namespace GE {
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxCubeMapName);
 
 		for (int faceNum = 0; faceNum < 6; faceNum++) {
+			//std::cout << filenames[faceNum] << "\n";
+
 			SDL_Surface* s = IMG_Load(filenames[faceNum].c_str());
 
 			if (s == nullptr) {
+				std::cout << "Error loading skybox file" << "\n";
 				return;
 			}
 

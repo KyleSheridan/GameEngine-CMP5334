@@ -135,6 +135,7 @@ namespace GE {
 		};*/
 
 		std::string V_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.vs");
+		//std::string V_ShaderStr = loadShaderSourceCode("Shaders/VertexShader.glsl");
 
 		const GLchar* V_ShaderCode[] = { V_ShaderStr.c_str() };
 		 
@@ -168,6 +169,7 @@ namespace GE {
 		};*/
 
 		std::string F_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.fs");
+		//std::string F_ShaderStr = loadShaderSourceCode("Shaders/FragmentShader.glsl");
 
 		const GLchar* F_ShaderCode[] = { F_ShaderStr.c_str() };
 

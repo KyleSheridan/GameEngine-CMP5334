@@ -8,8 +8,9 @@ namespace GE {
 	struct Vertex {
 		float x, y, z;
 		float u, v;
+		float nx, ny, nz;
 
-		Vertex(float _x, float _y, float _z, float _u, float _v) {
+		Vertex(float _x, float _y, float _z, float _u, float _v, float _nx, float _ny, float _nz) {
 			//position
 			x = _x;
 			y = _y;
@@ -18,6 +19,11 @@ namespace GE {
 			//colour
 			u = _u;
 			v = _v;
+
+			//normal
+			nx = _nx;
+			ny = _ny;
+			nz = _nz;
 		}
 
 		Vertex() {

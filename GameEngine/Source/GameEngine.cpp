@@ -137,6 +137,20 @@ namespace GE {
 		brazierModel2->setPos(-175, -100, 1000);
 		brazierModel2->setScale(0.05, 0.05, 0.05);
 
+		//Billboard
+		bbTex = new Texture("Assets/tree.png");
+
+		bb = new Billboard(bbTex);
+
+		bb->setScaleX(10.0f);
+		bb->setScaleY(10.0f);
+
+		bb->setZ(0.0f);
+
+		bbr = new BillboardRenderer();
+
+		bbr->init();
+
 		//skybox
 		skybox = new SkyboxRenderer(
 			"Assets/Skybox/front.png",
@@ -147,7 +161,7 @@ namespace GE {
 			"Assets/Skybox/bottom.png"
 		);
 
-		SDL_ShowCursor(SDL_DISABLE);
+		//SDL_ShowCursor(SDL_DISABLE);
 
 		return true;
 	}
@@ -164,11 +178,17 @@ namespace GE {
 		}
 
 		if (!paused) {
-			int mouseX, mouseY;
+			int mouseX = 0;
+			int mouseY = 0;
 			SDL_GetMouseState(&mouseX, &mouseY);
 
 			float diffx = mouseX - cam->getOldMouseX();
 			float diffy = cam->getOldMouseY() - mouseY;
+
+			//std::cout << diffx << "      " << diffy << "\n";
+
+			std::cout << "old pos:    " << cam->getOldMouseX() << "      " << cam->getOldMouseY() << "\n";
+			std::cout << "new pos:    " << mouseX << "      " << mouseY << "\n";
 
 			cam->setYaw(cam->getYaw() + (diffx * mouseSens));
 			cam->setPitch(cam->getPitch() + (diffy * mouseSens));
@@ -179,10 +199,10 @@ namespace GE {
 			direction.z = sin(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
 			cam->setTarget(glm::normalize(direction));
 		
-			SDL_WarpMouseInWindow(window, width / 2, height / 2);
+			//SDL_WarpMouseInWindow(window, width / 2, height / 2);
 		}
 
-		if (SDL_PollEvent(&e)) {
+		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_KEYDOWN) {
 				switch (e.key.keysym.scancode) {
 				case SDL_SCANCODE_ESCAPE:
@@ -255,7 +275,7 @@ namespace GE {
 			if (e.type == SDL_MOUSEBUTTONDOWN) {
 				if (paused) {
 					paused = false;
-					SDL_ShowCursor(SDL_DISABLE);
+					//SDL_ShowCursor(SDL_DISABLE);
 				}
 			}
 		}
@@ -320,6 +340,8 @@ namespace GE {
 		for (Model*& rock : rockModels)
 			rock->draw(cam);
 
+		bbr->draw(bb, cam);
+
 		SDL_GL_SwapWindow(window);
 	}
 
@@ -332,6 +354,11 @@ namespace GE {
 		delete skybox;
 		delete palmTreeModel;
 		delete cam;
+
+		//free billboard objects
+		delete bbr;
+		delete bb;
+		delete bbTex;
 
 		SDL_DestroyWindow(window);
 

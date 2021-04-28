@@ -8,6 +8,8 @@
 #include "Model.h"
 #include "Camera.h"
 #include "SkyboxRenderer.h"
+#include "Billboard.h"
+#include "BillboardRenderer.h"
 
 namespace GE {
 	class GameEngine {
@@ -58,6 +60,11 @@ namespace GE {
 		//brazier
 		Model* brazierModel;
 		Model* brazierModel2;
+
+		//Billboard
+		Texture* bbTex;
+		Billboard* bb;
+		BillboardRenderer* bbr;
 
 		//skybox
 		SkyboxRenderer* skybox;
