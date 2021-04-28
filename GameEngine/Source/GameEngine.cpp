@@ -72,9 +72,9 @@ namespace GE {
 		terrainModel->setPos(0.0f, -0.5f, 0.0f);
 
 		//create palm tree Model
-		palmTreeModel = new Model("Assets/PalmTree.obj", "Assets/PalmTreeTexture.png");
+		/*palmTreeModel = new Model("Assets/PalmTree.obj", "Assets/PalmTreeTexture.png");
 		palmTreeModel->init();
-		palmTreeModel->setPos(20.0f, 0.0f, 40.0f);
+		palmTreeModel->setPos(20.0f, 0.0f, 40.0f);*/
 
 		//other trees
 		treeModel = new Model("Assets/Tree.obj", "Assets/TreeTexture.png");
@@ -187,8 +187,8 @@ namespace GE {
 
 			//std::cout << diffx << "      " << diffy << "\n";
 
-			std::cout << "old pos:    " << cam->getOldMouseX() << "      " << cam->getOldMouseY() << "\n";
-			std::cout << "new pos:    " << mouseX << "      " << mouseY << "\n";
+			//std::cout << "old pos:    " << cam->getOldMouseX() << "      " << cam->getOldMouseY() << "\n";
+			//std::cout << "new pos:    " << mouseX << "      " << mouseY << "\n";
 
 			cam->setYaw(cam->getYaw() + (diffx * mouseSens));
 			cam->setPitch(cam->getPitch() + (diffy * mouseSens));
@@ -330,7 +330,7 @@ namespace GE {
 
 		terrainModel->draw(cam);
 
-		palmTreeModel->draw(cam);
+		//palmTreeModel->draw(cam);
 		treeModel->draw(cam);
 		templeModel->draw(cam);
 
@@ -342,6 +342,8 @@ namespace GE {
 
 		bbr->draw(bb, cam);
 
+		//std::cout << bb->getX() << "   " << bb->getY() << "   " << bb->getZ() << "\n";
+
 		SDL_GL_SwapWindow(window);
 	}
 
@@ -352,7 +354,7 @@ namespace GE {
 		skybox->clear();
 
 		delete skybox;
-		delete palmTreeModel;
+		//delete palmTreeModel;
 		delete cam;
 
 		//free billboard objects

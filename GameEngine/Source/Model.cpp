@@ -25,6 +25,6 @@ namespace GE {
 
 	void Model::clear()
 	{
-		mr->clear();
+		//mr->clear();
 	}
 }

@@ -49,14 +49,14 @@ namespace GE {
 
 	BillboardRenderer::BillboardRenderer()
 	{
-		
+
 	}
 
 	void BillboardRenderer::init()
 	{
 		// New! Load shader source from files.  Need the new ShaderUtils files
-		std::string v_shader_source = loadShaderSourceCode("billboard.vs");
-		std::string f_shader_source = loadShaderSourceCode("billboard.fs");
+		std::string v_shader_source = loadShaderSourceCode("Shaders/Billboard.vs");
+		std::string f_shader_source = loadShaderSourceCode("Shaders/Billboard.fs");
 
 		// Due to the unique way OpenGL handles shader source, OpenGL expects
 		// an array of strings.  In this case, create an array of the
@@ -104,7 +104,7 @@ namespace GE {
 		// be loaded from a file
 	}
 
-	void BillboardRenderer::draw(Billboard* b, Camera *cam)
+	void BillboardRenderer::draw(Billboard* b, Camera* cam)
 	{
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
@@ -119,8 +119,8 @@ namespace GE {
 		transformationMat = glm::translate(transformationMat, glm::vec3(b->getX(), b->getY(), b->getZ()));
 
 		// Rotation with respect to the camera
-		transformationMat = glm::rotate(transformationMat, 
-			glm::radians(270.0f - cam->getYaw()), 
+		transformationMat = glm::rotate(transformationMat,
+			glm::radians(360.0f - cam->getYaw() - 90.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Scale, only need x and y

@@ -151,10 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Shaders\Billboard.fs" />
+    <None Include="Shaders\Billboard.vs" />
+    <None Include="Shaders\FragmentShader.glsl" />
     <None Include="Shaders\StandardLit.fs" />
     <None Include="Shaders\StandardLit.vs" />
+    <None Include="Shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Billboard.h" />
+    <ClInclude Include="Source\BillboardRenderer.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CrossPlatform.h" />
     <ClInclude Include="Source\FPS.h" />
@@ -164,10 +170,12 @@
     <ClInclude Include="Source\ModelRenderer.h" />
     <ClInclude Include="Source\ShaderUtils.h" />
     <ClInclude Include="Source\SkyboxRenderer.h" />
+    <ClInclude Include="Source\Terrain.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\TriangleRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BillboardRenderer.cpp" />
     <ClCompile Include="Source\FPS.cpp" />
     <ClCompile Include="Source\GameEngine.cpp" />
     <ClCompile Include="Source\main.cpp" />
