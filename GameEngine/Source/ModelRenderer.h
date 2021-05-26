@@ -105,6 +105,11 @@ namespace GE {
 		//stores the triangle vertex buffer object containing vertices
 		GLuint vboModel;
 
+		//fog uniforms
+		GLuint fogColourId;
+		GLuint fogStartId;
+		GLuint fogRangeId;
+
 		float posX, posY, posZ;
 		float rotX, rotY, rotZ;
 		float scaleX, scaleY, scaleZ;

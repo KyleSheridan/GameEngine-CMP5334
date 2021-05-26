@@ -61,7 +61,7 @@ namespace GE {
 			glm::vec3(0.0f, 0.0f, 5.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f) /*+ dist*/,
 			glm::vec3(0.0f, 1.0f, 0.0f),
-			45.0f, 640.0f / 480.0f, 0.1f, 100.0f
+			45.0f, 640.0f / 480.0f, 0.1f, 300.0f
 		);
 
 		//terrain
@@ -69,12 +69,12 @@ namespace GE {
 		terrainModel->init();
 
 		terrainModel->setScale(10.0f, 10.0f, 10.0f);
-		terrainModel->setPos(0.0f, -0.5f, 0.0f);
+		terrainModel->setPos(10.0f, -0.5f, 0.0f);
 
 		//create palm tree Model
-		/*palmTreeModel = new Model("Assets/PalmTree.obj", "Assets/PalmTreeTexture.png");
+		palmTreeModel = new Model("Assets/PalmTree.obj", "Assets/PalmTreeTexture.png");
 		palmTreeModel->init();
-		palmTreeModel->setPos(20.0f, 0.0f, 40.0f);*/
+		palmTreeModel->setPos(20.0f, 0.0f, 40.0f);
 
 		//other trees
 		treeModel = new Model("Assets/Tree.obj", "Assets/TreeTexture.png");
@@ -330,7 +330,7 @@ namespace GE {
 
 		terrainModel->draw(cam);
 
-		//palmTreeModel->draw(cam);
+		palmTreeModel->draw(cam);
 		treeModel->draw(cam);
 		templeModel->draw(cam);
 
@@ -354,7 +354,7 @@ namespace GE {
 		skybox->clear();
 
 		delete skybox;
-		//delete palmTreeModel;
+		delete palmTreeModel;
 		delete cam;
 
 		//free billboard objects

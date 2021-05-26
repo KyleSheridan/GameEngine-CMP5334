@@ -3,84 +3,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace GE {
-	/*
-	GLfloat vertexData1[12] = {
-			-0.2f, -0.8f,
-			-0.13f, 0.0f,
-			-0.03f, 0.4f,
-			0.1f, 0.65f,
-			0.0f, 0.0f,
-			-0.05f, -0.75f
-	};
-
-	GLfloat vertexData2[10] = {
-		0.3f, 0.75f,
-		0.1f, 0.65f,
-		0.3f, 0.95f,
-		0.45f, 0.8f,
-		0.5f, 0.2f
-	};
-
-	GLfloat vertexData3[10] = {
-		0.38f, 0.55f,
-		0.1f, 0.65f,
-		0.35f, 0.75f,
-		0.5f, 0.6f,
-		0.55f, 0.2f
-	};
-
-	GLfloat vertexData4[10] = {
-		-0.18f, 0.7f,
-		0.1f, 0.65f,
-		-0.15f, 0.9f,
-		-0.35f, 0.8f,
-		-0.5f, 0.4f
-	};
-
-	GLfloat vertexData5[10] = {
-		-0.28f, 0.4f,
-		0.1f, 0.65f,
-		-0.25f, 0.6f,
-		-0.45f, 0.5f,
-		-0.6f, 0.1f
-	}; */
-
-	/*
-	Vertex triangleVertices[] = {
-		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-		Vertex(0.0f, 0.0f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-		Vertex(-0.05f, -0.75f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-		Vertex(-0.2f, -0.8f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-		Vertex(-0.13f, 0.0f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-		Vertex(-0.03f, 0.4f, 0.0f, 0.1f, 0.01f, 0.01f, 1.0f),
-
-		
-		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(0.3f, 0.95f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(0.45f, 0.8f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(0.5f, 0.2f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(0.3f, 0.75f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-
-		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(0.35f, 0.75f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(0.5f, 0.6f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(0.55f, 0.2f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(0.38f, 0.55f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-
-		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(-0.15f, 0.9f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(-0.35f, 0.8f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(-0.5f, 0.4f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-		Vertex(-0.18f, 0.7f, 0.0f, 0.1f, 0.35f, 0.01f, 1.0f),
-
-		Vertex(0.1f, 0.65f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(-0.25f, 0.6f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(-0.45f, 0.5f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(-0.6f, 0.1f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f),
-		Vertex(-0.28f, 0.4f, 0.0f, 0.1f, 0.8f, 0.01f, 1.0f)
-		
-	};*/
-
 	void displayShaderCompilerError(GLuint shaderId)
 	{
 		GLint MsgLen = 0;
@@ -222,6 +144,19 @@ namespace GE {
 		viewUniformId = glGetUniformLocation(programId, "view");
 		projectionUniformId = glGetUniformLocation(programId, "projection");
 		samplerId = glGetUniformLocation(programId, "sampler");
+
+		fogColourId = glGetUniformLocation(programId, "fog_colour");
+		fogStartId = glGetUniformLocation(programId, "fog_start");
+		fogRangeId = glGetUniformLocation(programId, "fog_range");
+
+		glUseProgram(programId);
+		glUniform1f(fogStartId, 50.0f);
+		glUniform1f(fogRangeId, 200.0f);
+
+		glm::vec3 fog_colour = glm::vec3(0.5f, 0.5f, 0.5f);
+		glUniform3fv(fogColourId, 1, glm::value_ptr(fog_colour));
+
+		glUseProgram(0);
 
 		glGenBuffers(1, &vboModel);
 		glBindBuffer(GL_ARRAY_BUFFER, vboModel);
