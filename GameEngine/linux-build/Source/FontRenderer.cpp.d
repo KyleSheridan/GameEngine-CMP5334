@@ -1,8 +1,4 @@
-linux-build/./Source/GameEngine.cpp.o: Source/GameEngine.cpp \
- Source/GameEngine.h Source/CrossPlatform.h Source/FPS.h \
- Source/TriangleRenderer.h Source/Model.h Source/Mesh.h Source/Texture.h \
- Source/ModelRenderer.h Source/Camera.h Source/ShaderUtils.h \
- Source/SkyboxRenderer.h Source/Billboard.h Source/BillboardRenderer.h \
+linux-build/./Source/FontRenderer.cpp.o: Source/FontRenderer.cpp \
  Source/FontRenderer.h /usr/include/freetype2/ft2build.h \
  /usr/include/freetype2/freetype/config/ftheader.h \
  /usr/include/freetype2/freetype/freetype.h \
@@ -14,33 +10,7 @@ linux-build/./Source/GameEngine.cpp.o: Source/GameEngine.cpp \
  /usr/include/freetype2/freetype/ftimage.h \
  /usr/include/freetype2/freetype/fterrors.h \
  /usr/include/freetype2/freetype/ftmoderr.h \
- /usr/include/freetype2/freetype/fterrdef.h
-
-Source/GameEngine.h:
-
-Source/CrossPlatform.h:
-
-Source/FPS.h:
-
-Source/TriangleRenderer.h:
-
-Source/Model.h:
-
-Source/Mesh.h:
-
-Source/Texture.h:
-
-Source/ModelRenderer.h:
-
-Source/Camera.h:
-
-Source/ShaderUtils.h:
-
-Source/SkyboxRenderer.h:
-
-Source/Billboard.h:
-
-Source/BillboardRenderer.h:
+ /usr/include/freetype2/freetype/fterrdef.h Source/ShaderUtils.h
 
 Source/FontRenderer.h:
 
@@ -67,3 +37,5 @@ Source/FontRenderer.h:
 /usr/include/freetype2/freetype/ftmoderr.h:
 
 /usr/include/freetype2/freetype/fterrdef.h:
+
+Source/ShaderUtils.h:

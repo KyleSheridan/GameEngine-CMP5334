@@ -10,6 +10,7 @@
 #include "SkyboxRenderer.h"
 #include "Billboard.h"
 #include "BillboardRenderer.h"
+#include "FontRenderer.h"
 
 namespace GE {
 	class GameEngine {
@@ -68,6 +69,8 @@ namespace GE {
 
 		//skybox
 		SkyboxRenderer* skybox;
+
+		FontRenderer* fpsCounter;
 
 		FPS* fps;
 

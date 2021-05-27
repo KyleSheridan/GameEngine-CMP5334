@@ -5,7 +5,7 @@
 namespace GE {
 	// This is a helper function that allows us to see
 	// shader compiler error messages should our shaders not compile okay
-	void _displayShaderCompilerError(GLuint shaderId) {
+	void displayShaderCompilerError(GLuint shaderId) {
 		// First, get the length of the error message string
 		GLint MsgLen = 0;
 
@@ -75,7 +75,7 @@ namespace GE {
 			// Yes, so display an error message
 			std::cerr << "Unable to compile vertex shader" << std::endl;
 
-			_displayShaderCompilerError(vertexShader);
+			displayShaderCompilerError(vertexShader);
 
 			return false;
 		}
@@ -97,7 +97,7 @@ namespace GE {
 		if (isShaderCompiledOK != GL_TRUE) {
 			std::cerr << "Unable to compile fragment shader" << std::endl;
 
-			_displayShaderCompilerError(fragmentShader);
+			displayShaderCompilerError(fragmentShader);
 
 			return false;
 		}

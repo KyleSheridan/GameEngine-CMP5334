@@ -3,22 +3,22 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace GE {
-	void displayShaderCompilerError(GLuint shaderId)
-	{
-		GLint MsgLen = 0;
+	// void displayShaderCompilerError(GLuint shaderId)
+	// {
+	// 	GLint MsgLen = 0;
 
-		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &MsgLen);
+	// 	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &MsgLen);
 
-		if (MsgLen > 1) {
-			GLchar* Msg = new GLchar[MsgLen + 1];
+	// 	if (MsgLen > 1) {
+	// 		GLchar* Msg = new GLchar[MsgLen + 1];
 
-			glGetShaderInfoLog(shaderId, MsgLen, NULL, Msg);
+	// 		glGetShaderInfoLog(shaderId, MsgLen, NULL, Msg);
 
-			std::cerr << "Error compiling shader " << Msg << "\n";
+	// 		std::cerr << "Error compiling shader " << Msg << "\n";
 
-			delete[] Msg;
-		}
-	}
+	// 		delete[] Msg;
+	// 	}
+	// }
 
 	void DisplayProgramCompilationError(GLuint programID) {
 		GLint msgLen = 0;

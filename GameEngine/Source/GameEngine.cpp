@@ -161,6 +161,9 @@ namespace GE {
 			"Assets/Skybox/bottom.png"
 		);
 
+		fpsCounter = new FontRenderer(width, height);
+		fpsCounter->init();
+
 		//SDL_ShowCursor(SDL_DISABLE);
 
 		return true;
@@ -341,6 +344,8 @@ namespace GE {
 			rock->draw(cam);
 
 		bbr->draw(bb, cam);
+
+		fpsCounter->RenderText("WOOO", 200.0f, 200.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		//std::cout << bb->getX() << "   " << bb->getY() << "   " << bb->getZ() << "\n";
 

@@ -24,10 +24,10 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CC =g++
 # The -MMD and -MP flags together generate Makefiles for us!
 # These files will have .d instead of .o as the output.
-CPPFLAGS := $(INC_FLAGS) -MMD -MP -std=c++14
+CPPFLAGS := $(INC_FLAGS) -MMD -MP -std=c++14 -I/usr/include/freetype2 -I/usr/include/libpng16
 
 # Linker flags
-LDFLAGS =-lSDL2 -lSDL2_image -lGLU -lGL -lGLEW -lassimp
+LDFLAGS =-lSDL2 -lSDL2_image -lGLU -lGL -lGLEW -lassimp -lfreetype
 
 # The final build step.
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
