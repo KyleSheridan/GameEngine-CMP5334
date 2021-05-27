@@ -10,7 +10,7 @@
 #include "SkyboxRenderer.h"
 #include "Billboard.h"
 #include "BillboardRenderer.h"
-#include "FontRenderer.h"
+
 
 namespace GE {
 	class GameEngine {
@@ -64,13 +64,15 @@ namespace GE {
 
 		//Billboard
 		Texture* bbTex;
-		Billboard* bb;
+		Billboard* bb1;
+		Billboard* bb2;
+		Billboard* bb3;
+		Billboard* bb4;
+		Billboard* bb5;
 		BillboardRenderer* bbr;
 
 		//skybox
 		SkyboxRenderer* skybox;
-
-		FontRenderer* fpsCounter;
 
 		FPS* fps;
 

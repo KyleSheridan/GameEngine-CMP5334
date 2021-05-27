@@ -140,12 +140,50 @@ namespace GE {
 		//Billboard
 		bbTex = new Texture("Assets/tree.png");
 
-		bb = new Billboard(bbTex);
+		bb1 = new Billboard(bbTex);
 
-		bb->setScaleX(10.0f);
-		bb->setScaleY(10.0f);
+		bb1->setScaleX(25.0f);
+		bb1->setScaleY(25.0f);
 
-		bb->setZ(0.0f);
+		bb1->setX(70.0f);
+		bb1->setY(-6.0f);
+		bb1->setZ(0.0f);
+
+		bb2 = new Billboard(bbTex);
+
+		bb2->setScaleX(23.0f);
+		bb2->setScaleY(23.0f);
+
+		bb2->setX(70.0f);
+		bb2->setY(-6.0f);
+		bb2->setZ(30.0f);
+
+		bb3 = new Billboard(bbTex);
+
+		bb3->setScaleX(25.0f);
+		bb3->setScaleY(25.0f);
+
+		bb3->setX(-70.0f);
+		bb3->setY(-6.0f);
+		bb3->setZ(0.0f);
+
+		bb4 = new Billboard(bbTex);
+
+		bb4->setScaleX(23.0f);
+		bb4->setScaleY(23.0f);
+
+		bb4->setX(-70.0f);
+		bb4->setY(-6.0f);
+		bb4->setZ(30.0f);
+
+		bb5 = new Billboard(bbTex);
+
+		bb5->setScaleX(25.0f);
+		bb5->setScaleY(25.0f);
+
+		bb5->setX(10.0f);
+		bb5->setY(-6.0f);
+		bb5->setZ(-50.0f);
 
 		bbr = new BillboardRenderer();
 
@@ -161,10 +199,7 @@ namespace GE {
 			"Assets/Skybox/bottom.png"
 		);
 
-		fpsCounter = new FontRenderer(width, height);
-		fpsCounter->init();
-
-		//SDL_ShowCursor(SDL_DISABLE);
+		SDL_ShowCursor(SDL_DISABLE);
 
 		return true;
 	}
@@ -202,7 +237,7 @@ namespace GE {
 			direction.z = sin(glm::radians(cam->getYaw())) * cos(glm::radians(cam->getPitch()));
 			cam->setTarget(glm::normalize(direction));
 		
-			//SDL_WarpMouseInWindow(window, width / 2, height / 2);
+			SDL_WarpMouseInWindow(window, width / 2, height / 2);
 		}
 
 		while (SDL_PollEvent(&e)) {
@@ -278,7 +313,7 @@ namespace GE {
 			if (e.type == SDL_MOUSEBUTTONDOWN) {
 				if (paused) {
 					paused = false;
-					//SDL_ShowCursor(SDL_DISABLE);
+					SDL_ShowCursor(SDL_DISABLE);
 				}
 			}
 		}
@@ -343,9 +378,11 @@ namespace GE {
 		for (Model*& rock : rockModels)
 			rock->draw(cam);
 
-		bbr->draw(bb, cam);
-
-		fpsCounter->RenderText("WOOO", 200.0f, 200.0f, 1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+		bbr->draw(bb1, cam);
+		bbr->draw(bb2, cam);
+		bbr->draw(bb3, cam);
+		bbr->draw(bb4, cam);
+		bbr->draw(bb5, cam);
 
 		//std::cout << bb->getX() << "   " << bb->getY() << "   " << bb->getZ() << "\n";
 
@@ -364,7 +401,11 @@ namespace GE {
 
 		//free billboard objects
 		delete bbr;
-		delete bb;
+		delete bb1;
+		delete bb2;
+		delete bb3;
+		delete bb4;
+		delete bb5;
 		delete bbTex;
 
 		SDL_DestroyWindow(window);

@@ -1,6 +1,11 @@
-﻿  BillboardRenderer.cpp
+﻿  GameEngine.cpp
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\Camera.h(53,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\Camera.h(56,11): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\Camera.h(136,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\Camera.h(139,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\GameEngine.h(82,25): warning C4305: 'initializing': truncation from 'double' to 'const float'
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\GameEngine.cpp(133,42): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\GameEngine.cpp(138,43): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\GameEngine.cpp(329,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Documents\GitHub\GameEngine-CMP5334\GameEngine\Source\GameEngine.cpp(330,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GameEngine.vcxproj -> D:\Documents\GitHub\GameEngine-CMP5334\Debug\GameEngine.exe
