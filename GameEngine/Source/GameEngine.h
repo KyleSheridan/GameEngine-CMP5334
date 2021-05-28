@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "FPS.h"
-#include "TriangleRenderer.h"
 #include "Model.h"
 #include "Camera.h"
 #include "SkyboxRenderer.h"

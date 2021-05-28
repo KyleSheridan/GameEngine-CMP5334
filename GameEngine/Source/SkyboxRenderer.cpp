@@ -85,8 +85,6 @@ namespace GE {
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxCubeMapName);
 
 		for (int faceNum = 0; faceNum < 6; faceNum++) {
-			//std::cout << filenames[faceNum] << "\n";
-
 			SDL_Surface* s = IMG_Load(filenames[faceNum].c_str());
 
 			if (s == nullptr) {
@@ -219,9 +217,6 @@ namespace GE {
 		glDisableVertexAttribArray(vertexLocation);
 
 		glUseProgram(0);
-
-		/*glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);*/
 
 		if (isDepthTestEnable) {
 			glEnable(GL_DEPTH_TEST);

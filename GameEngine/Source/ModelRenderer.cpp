@@ -3,23 +3,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace GE {
-	// void displayShaderCompilerError(GLuint shaderId)
-	// {
-	// 	GLint MsgLen = 0;
-
-	// 	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &MsgLen);
-
-	// 	if (MsgLen > 1) {
-	// 		GLchar* Msg = new GLchar[MsgLen + 1];
-
-	// 		glGetShaderInfoLog(shaderId, MsgLen, NULL, Msg);
-
-	// 		std::cerr << "Error compiling shader " << Msg << "\n";
-
-	// 		delete[] Msg;
-	// 	}
-	// }
-
 	void DisplayProgramCompilationError(GLuint programID) {
 		GLint msgLen = 0;
 		glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &msgLen);
@@ -35,32 +18,11 @@ namespace GE {
 
 	void ModelRenderer::init()
 	{
-		//std::cout << sizeof(vertexDataA) << "    " << sizeof(vertexData) << "\n";
-		//std::cout << sizeof(vertexDataA) / sizeof(vertexDataA[0]) << "    " << sizeof(*vertexData) / sizeof(vertexData[0]) << "\n";
-
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
-		/*const GLchar* V_ShaderCode[] = {
-			"#version 140\n"
-			"in vec3 vertexPos3D;\n"
-			"in vec2 vUV;\n"
-			"out vec2 uv;\n"
-			"uniform mat4 transform;\n"
-			"uniform mat4 view;\n"
-			"uniform mat4 projection;\n"
-			"void main() {\n"
-			"vec4 v = vec4(vertexPos3D.xyz, 1);\n"
-			"v = projection * view * transform * v;\n"
-			"gl_Position = v;\n"
-			"uv = vUV;\n"
-			"}\n"
-		};*/
-
 		std::string V_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.vs");
-		//std::string V_ShaderStr = loadShaderSourceCode("Shaders/VertexShader.glsl");
 
 		const GLchar* V_ShaderCode[] = { V_ShaderStr.c_str() };
-		 
 
 		glShaderSource(vertexShader, 1, V_ShaderCode, NULL);
 
@@ -80,18 +42,7 @@ namespace GE {
 
 		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		/*const GLchar* F_ShaderCode[] = {
-			"#version 140\n"
-			"in vec2 uv;\n"
-			"uniform sampler2D sampler;\n"
-			"out vec4 fragmentColour;\n"
-			"void main() {\n"
-			"fragmentColour = texture(sampler, uv).rgba;\n"
-			"}\n"
-		};*/
-
 		std::string F_ShaderStr = loadShaderSourceCode("Shaders/StandardLit.fs");
-		//std::string F_ShaderStr = loadShaderSourceCode("Shaders/FragmentShader.glsl");
 
 		const GLchar* F_ShaderCode[] = { F_ShaderStr.c_str() };
 
@@ -200,8 +151,6 @@ namespace GE {
 		glActiveTexture(GL_TEXTURE0);
 		glUniform1i(samplerId, 0);
 		glBindTexture(GL_TEXTURE_2D, material->getTextureName());
-
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboModel);
 
 		//draw model
 		glDrawArrays(GL_TRIANGLES, 0, mesh->getNumVertices());

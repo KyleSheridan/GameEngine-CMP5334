@@ -24,8 +24,6 @@ namespace GE {
 
 					const aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[vertIdx]];
 
-					//const aiVector3D* normal = &mesh->mNormals[meshIdx];
-
 					loadedVertices.push_back(Vertex(pos->x, pos->y, pos->z, uv.x, uv.y));
 				}
 			}

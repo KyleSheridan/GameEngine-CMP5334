@@ -173,9 +173,7 @@
     <ClInclude Include="Source\ModelRenderer.h" />
     <ClInclude Include="Source\ShaderUtils.h" />
     <ClInclude Include="Source\SkyboxRenderer.h" />
-    <ClInclude Include="Source\Terrain.h" />
     <ClInclude Include="Source\Texture.h" />
-    <ClInclude Include="Source\TriangleRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\BillboardRenderer.cpp" />
@@ -189,7 +187,6 @@
     <ClCompile Include="Source\ShaderUtils.cpp" />
     <ClCompile Include="Source\SkyboxRenderer.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
-    <ClCompile Include="Source\TriangleRenderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

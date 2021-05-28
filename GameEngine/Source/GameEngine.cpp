@@ -223,11 +223,6 @@ namespace GE {
 			float diffx = mouseX - cam->getOldMouseX();
 			float diffy = cam->getOldMouseY() - mouseY;
 
-			//std::cout << diffx << "      " << diffy << "\n";
-
-			//std::cout << "old pos:    " << cam->getOldMouseX() << "      " << cam->getOldMouseY() << "\n";
-			//std::cout << "new pos:    " << mouseX << "      " << mouseY << "\n";
-
 			cam->setYaw(cam->getYaw() + (diffx * mouseSens));
 			cam->setPitch(cam->getPitch() + (diffy * mouseSens));
 
@@ -383,8 +378,6 @@ namespace GE {
 		bbr->draw(bb3, cam);
 		bbr->draw(bb4, cam);
 		bbr->draw(bb5, cam);
-
-		//std::cout << bb->getX() << "   " << bb->getY() << "   " << bb->getZ() << "\n";
 
 		SDL_GL_SwapWindow(window);
 	}
