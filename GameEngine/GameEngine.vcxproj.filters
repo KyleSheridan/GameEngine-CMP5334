@@ -15,16 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\StandardLit.vs" />
-    <None Include="Shaders\StandardLit.fs" />
-    <None Include="Shaders\FragmentShader.glsl" />
-    <None Include="Shaders\Billboard.fs" />
-    <None Include="Shaders\Billboard.vs" />
-    <None Include="Shaders\VertexShader.glsl" />
-    <None Include="Shaders\Text.vs" />
-    <None Include="Shaders\Text.fs" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Source\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
